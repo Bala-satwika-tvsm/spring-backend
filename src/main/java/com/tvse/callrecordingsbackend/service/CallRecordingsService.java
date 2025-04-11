@@ -16,6 +16,7 @@ public class CallRecordingsService {   private final CallRecordingsRepo callRepo
     }
 
     public List<CallRecordingsEntity> getCallRecords() {
+
         return callRepo.fetchCallRecords();
     }
 }

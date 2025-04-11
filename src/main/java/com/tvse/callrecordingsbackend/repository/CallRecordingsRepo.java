@@ -23,6 +23,7 @@ public class CallRecordingsRepo {
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
+
             /* logic to print the total columns in console just for reference */
             ResultSetMetaData metaData = resultSet.getMetaData();
             int columnCount = metaData.getColumnCount();
@@ -39,13 +40,22 @@ public class CallRecordingsRepo {
                         resultSet.getString("Call_Duration"),
                         resultSet.getString("Status"),
                         resultSet.getString("Call_Date"),
-                        resultSet.getString("url")
+                        resultSet.getString("url"),
+                        resultSet.getString("ProjectName"),
+                        resultSet.getString("UnitNumber"),
+                        resultSet.getString("ApartmentName"),
+                        resultSet.getString("Phase"),
+                        resultSet.getString("UnitStatus")
                 ));
             }
 
 
+        }  catch (SQLException e) {
+            System.out.println("SQL Exception while fetching call records: " + e.getMessage());
+            e.printStackTrace(); // prints full stack trace to the console/logstream
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Unexpected error during DB access: " + e.getMessage());
+            e.printStackTrace(); // prints full stack trace to the console/logstream
         }
         return callRecords;
     }

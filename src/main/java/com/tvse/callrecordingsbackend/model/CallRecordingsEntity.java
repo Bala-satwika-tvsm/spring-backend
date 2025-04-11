@@ -14,5 +14,10 @@ public class CallRecordingsEntity {
     private String Status;
     private String Call_Date;
     private String url;
+    private String ProjectName;
+    private String UnitNumber;
+    private String ApartmentName;
+    private String Phase;
+    private String UnitStatus;
 
 }
