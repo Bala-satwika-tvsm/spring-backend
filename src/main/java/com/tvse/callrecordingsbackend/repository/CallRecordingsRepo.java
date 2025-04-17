@@ -3,6 +3,7 @@ package com.tvse.callrecordingsbackend.repository;
 import com.tvse.callrecordingsbackend.model.CallRecordingsEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import java.net.URL;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -113,7 +114,7 @@ public class CallRecordingsRepo {
                         resultSet.getString("Call_Duration"),
                         resultSet.getString("Status"),
                         resultSet.getString("Call_Date"),
-                        resultSet.getString("url"),
+
                         resultSet.getString("ProjectName"),
                         resultSet.getString("UnitNumber"),
                         resultSet.getString("ApartmentName"),
@@ -195,6 +196,40 @@ public class CallRecordingsRepo {
 
         return units;
     }
+
+    public String fetchBlobUrlByCallId(String callId) {
+        String fullUrl = null;
+        String blobName = null;
+
+        String sql = "SELECT url FROM tvse.tata_tele_audio_metadata_tbl_test WHERE REPLACE(Call_Id, '\"', '') = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, callId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                fullUrl = resultSet.getString("url");
+
+                // Extract blob name (remove container name from the path)
+                URL url = new URL(fullUrl);
+                String path = url.getPath(); //  /tvse/lake/...
+
+                if (path.startsWith("/tvse/")) {
+                    blobName = path.substring("/tvse/".length()); // removes "/tvse/"
+                } else {
+                    blobName = path.startsWith("/") ? path.substring(1) : path; // fallback
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return blobName;
+    }
+
 
 
 

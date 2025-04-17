@@ -13,7 +13,7 @@ public class CallRecordingsEntity {
     private String Call_Duration;
     private String Status;
     private String Call_Date;
-    private String url;
+
     private String ProjectName;
     private String UnitNumber;
     private String ApartmentName;
