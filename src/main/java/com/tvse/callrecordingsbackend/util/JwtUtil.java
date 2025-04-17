@@ -23,6 +23,7 @@ public class JwtUtil {
         if (secret == null || secret.length() < 32) {
             throw new RuntimeException("JWT_SECRET environment variable is not set or too short. Must be at least 32 characters.");
         }
+        //cryptographic signing key
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 

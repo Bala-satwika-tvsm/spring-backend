@@ -15,8 +15,21 @@ public class CallRecordingsService {   private final CallRecordingsRepo callRepo
         this.callRepo = callRepo;
     }
 
-    public List<CallRecordingsEntity> getCallRecords() {
-
-        return callRepo.fetchCallRecords();
+    public List<CallRecordingsEntity> getFilteredCallRecords(String projectName,String ApartmentName, String unitNumber, String callDateFrom, String callDateTo,String Call_Id) {
+        return callRepo.fetchFilteredCallRecords(projectName,ApartmentName, unitNumber, callDateFrom, callDateTo,Call_Id);
     }
+
+
+    public List<String> getAllProjects() {
+        return callRepo.getAllProjects();
+    }
+
+    public List<String> getApartmentsByProject(String projectName) {
+        return callRepo.getApartmentsByProject(projectName);
+    }
+
+    public List<String> getUnits(String project, String apartment) {
+        return callRepo.getUnits(project, apartment);
+    }
+
 }

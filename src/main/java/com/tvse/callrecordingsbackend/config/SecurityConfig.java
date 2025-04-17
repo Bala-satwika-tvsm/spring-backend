@@ -40,7 +40,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOriginPatterns(List.of("http://localhost:3000","http://localhost:3001","https://zealous-forest-013464c00.6.azurestaticapps.net")); // Allow frontend
+        config.setAllowedOriginPatterns(List.of("http://localhost:3000","http://localhost:3003","https://zealous-forest-013464c00.6.azurestaticapps.net")); // Allow frontend
         config.setAllowedMethods(List.of("*")); // Allow API methods
         config.setAllowedHeaders(List.of("*")); // Allow headers
         config.setExposedHeaders(List.of("Authorization")); // Expose headers for frontend
